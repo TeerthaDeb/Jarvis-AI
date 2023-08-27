@@ -1,4 +1,4 @@
-#jervis Beta 0.1
+#jervis Beta 0.1.1
 #created by : Maharaj Teertha Deb
 #linked IN : https://www.linkedin.com/in/maharaj-teertha-deb/
 #released on : August-26-2023
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 	
 	wishMe()
 	while (True):
-		query = "what is javadoc"
+		query = takeCommand().lower
 		# The code block is checking if the word "wikipedia" is present in the user's query. If
 		# it is, the code removes the word "wikipedia" from the query and uses the `wikipedia` library to
 		# search for a summary of the remaining query on Wikipedia. It retrieves the summary of the query
@@ -329,4 +329,8 @@ if __name__ == "__main__":
 		elif "quite" or "exit" in query:
 			speak("Thank you for using me. Talk to you later. Bye")
 			SystemExit(0)
+
+		elif "who made you" in query:
+			speak("Mr. Maharaj Teertha Deb made me. visit his linkedIN profile typed below")
+			print("https://www.linkedin.com/in/maharaj-teertha-deb/")
 
