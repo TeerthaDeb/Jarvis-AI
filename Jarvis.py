@@ -1,7 +1,7 @@
-#jervis Beta 0.1.1
-#created by : Maharaj Teertha Deb
-#linked IN : https://www.linkedin.com/in/maharaj-teertha-deb/
-#released on : August-26-2023
+#jervis Beta 0.2
+#created by 	: Maharaj Teertha Deb
+#linked IN 		: https://www.linkedin.com/in/maharaj-teertha-deb/
+#released on 	: August-26-2023
 
 
 # The code script that imports various libraries and modules to perform different tasks.
@@ -16,6 +16,8 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.parse
 from googlesearch import search
+from pytube import YouTube
+import pywhatkit as kit
 
 # The code is initializing the pyttsx3 text-to-speech engine using the 'sapi5' speech synthesis API. 
 # It then retrieves the available voices and sets the voice to be used as the second voice in the list (Zira).
@@ -86,7 +88,7 @@ def takeCommand():
 	except Exception as e:
 		print("Exception : " , e)
 		print("Say that again please....")
-		query = "None"
+		return "N+one"
 
 	return query
 
@@ -120,13 +122,28 @@ def googleSearch(contentToSearch):
 			webbrowser.open(i)
 	except Exception as e:
 			print("Error : " , e)
-	
+
+
+def playMusicFromYouTube(search_query):
+    """
+    Function to search for and play music from YouTube.
+    """
+    try:
+        speak("Searching YouTube for " + search_query)
+        kit.playonyt(search_query)
+    except Exception as e:
+        print("Error:", e)
+        speak("Sorry, I couldn't play the music from YouTube.")
+
+
+################# Main Function Follows ::::::::::::::::::::::::::::::;;;;
+
 
 if __name__ == "__main__":
 	
 	wishMe()
 	while (True):
-		query = takeCommand().lower
+		query = takeCommand().lower()
 		# The code block is checking if the word "wikipedia" is present in the user's query. If
 		# it is, the code removes the word "wikipedia" from the query and uses the `wikipedia` library to
 		# search for a summary of the remaining query on Wikipedia. It retrieves the summary of the query
@@ -144,6 +161,13 @@ if __name__ == "__main__":
 			results = wikipedia.summary(query , sentences = 2)
 			print(results)
 			speak(f"According to Wikipedia,{results}")
+		
+		# The code is checking if the query contains the words "play" and "from youtube". If it does,
+		# it extracts the music query by removing the words "play" and "from youtube" from the query and
+		# then calls the function `playMusicFromYouTube` with the extracted music query as an argument.
+		if "play" in query and "from youtube" in query:
+			music_query = query.replace("play", "").replace("from youtube", "").strip()
+			playMusicFromYouTube(music_query)
 
 		# The code block elif ("open youtube" in query): is checking if the
 		# user's query contains the phrase "open youtube". If it does, it opens the YouTube website in the
@@ -152,6 +176,19 @@ if __name__ == "__main__":
 		elif ("open youtube" in query):
 			try:
 				webbrowser.open("https://www.youtube.com")
+				speak("Do you want me to play anymusic?")
+				query = takeCommand.lower()
+				if "yes" in query:
+					speak("ask me the song to play: ")
+					query = takeCommand().lower()
+					music_query = query.replace("play", "").replace("from youtube", "").strip()
+					playMusicFromYouTube(music_query)
+				elif "play" in query and "from youtube" in query:
+					music_query = query.replace("play", "").replace("from youtube", "").strip()
+					playMusicFromYouTube(music_query)
+				else:
+					speak("Aborting playing music and Waiting on the next command...")
+
 			except Exception as e:
 					print("An error occurred:", e)
 
@@ -238,7 +275,7 @@ if __name__ == "__main__":
 				speak("the email has been sent")
 			except Exception as e:
 				print("Error :" , e)
-				speak("Sorry , I was not able to send the email. due to " , e)
+				speak("Sorry , I was not able to send the email. dueto " , e)
 		
 		elif ("google" in query):
 			search_query = query.replace("google" , "").strip()
@@ -267,7 +304,7 @@ if __name__ == "__main__":
 			except Exception as e:
 				print("Error:", e)
 
-		elif "what is" in query:
+		elif "what is" in query or "search" in query:
 			search_query = query.replace("what is", "").strip()
 			# First, try searching on Wikipedia
 			try:
@@ -322,15 +359,17 @@ if __name__ == "__main__":
 				print("Error:", e)
 				speak("Sorry, I couldn't open the website.")
 		
+		# The code is checking if the string "who made you" is present in the variable "query". If it
+		# is, it will print a message and a link to the LinkedIn profile of Mr. Maharaj Teertha Deb.
+		elif "who made you" in query:
+			speak("Mr. Maharaj Teertha Deb made me. visit his linkedIN profile typed below")
+			print("https://www.linkedin.com/in/maharaj-teertha-deb/")
+
 		# The cod is checking if the words "quite" or "exit" are present in the variable "query". If
 		# either of these words is present, it will execute the code inside the if statement. In this case,
 		# it will call the "speak" function to say "Thank you for using me. Talk to you later. Bye" and then
 		# exit the program with a status code of 0.
-		elif "quite" or "exit" in query:
+		elif ("quite" in query or "exit" in query):
 			speak("Thank you for using me. Talk to you later. Bye")
-			SystemExit(0)
-
-		elif "who made you" in query:
-			speak("Mr. Maharaj Teertha Deb made me. visit his linkedIN profile typed below")
-			print("https://www.linkedin.com/in/maharaj-teertha-deb/")
+			break
 
