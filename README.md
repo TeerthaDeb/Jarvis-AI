@@ -1,4 +1,4 @@
-# Jarvis-AI
+# Jarvis-AI Beta 0.2.1
 
 ## Your Personal Assistant
 
@@ -46,6 +46,13 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    - "Send an email to me"
    - "Exit" or "Quit"
 
+5. Change Log:
+
+	#Version Beta : 0.2.1:
+		* User can Type and Speak to command Jarvis
+		* Opens some application using "Open Application function"
+		* Better at playing youtube videos
+
 ### Contributing
 
 Contributions are highly encouraged! If you have improvements or new features to add, please create an issue or submit a pull request.
@@ -54,7 +61,7 @@ Contributions are highly encouraged! If you have improvements or new features to
 
 Created by Maharaj Teertha Deb  
 LinkedIn: [https://www.linkedin.com/in/maharaj-teertha-deb/](https://www.linkedin.com/in/maharaj-teertha-deb/)  
-Released on: August 30, 2023
+Released on: August 31, 2023
 
 ### Warning
 

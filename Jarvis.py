@@ -1,7 +1,14 @@
-#jervis Beta 0.2
+#jervis 		: Beta 0.2.1
 #created by 	: Maharaj Teertha Deb
 #linked IN 		: https://www.linkedin.com/in/maharaj-teertha-deb/
-#released on 	: August-26-2023
+#released on 	: August-31-2023
+
+'''
+	Changes on Beta 0.2.1 
+		* User can Type and Speak to command Jarvis
+		* Opens some application using "Open Application function"
+		* Very good at searching youtube Videos
+'''
 
 
 # The code script that imports various libraries and modules to perform different tasks.
@@ -16,8 +23,6 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.parse
 from googlesearch import search
-from pytube import YouTube
-import pywhatkit as kit
 
 # The code is initializing the pyttsx3 text-to-speech engine using the 'sapi5' speech synthesis API. 
 # It then retrieves the available voices and sets the voice to be used as the second voice in the list (Zira).
@@ -61,6 +66,7 @@ def takeCommand():
 	input is successfully recognized, it returns the recognized text. If there is an exception or error
 	during the speech recognition process, it returns the string "None".
 	"""
+
 	# The code block is using the `speech_recognition` library to capture audio input from
 	# the user using the microphone.
 	r = sr.Recognizer()
@@ -88,12 +94,21 @@ def takeCommand():
 	except Exception as e:
 		print("Exception : " , e)
 		print("Say that again please....")
-		return "N+one"
+		return "None"
 
 	return query
 
 
 def sendEmail(to , content):
+	"""
+	!!! THIS FUNCTION IS NOT DONE YET.....
+	The function `sendEmail` sends an email to the specified recipient with the given content.
+	
+	:param to: The "to" parameter is the email address of the recipient to whom you want to send the
+	email. It should be a string containing the email address
+	:param content: The content parameter is the body of the email that you want to send. It can be a
+	string containing the message you want to send to the recipient
+	"""
 	server = smtplib.SMTP("smtb.gmail.com" , 587)
 	server.ehlo()
 	server.starttls()
@@ -125,15 +140,62 @@ def googleSearch(contentToSearch):
 
 
 def playMusicFromYouTube(search_query):
-    """
-    Function to search for and play music from YouTube.
-    """
-    try:
-        speak("Searching YouTube for " + search_query)
-        kit.playonyt(search_query)
-    except Exception as e:
-        print("Error:", e)
-        speak("Sorry, I couldn't play the music from YouTube.")
+	""" The above code performing a search query on YouTube using the `search` function. It appends 
+		site:youtube.com" to the search query to ensure that the search results are limited to YouTube.
+
+	Args:
+		search_query (String): The video to be played.
+
+		** Since 0.2
+		** Updated on 0.2.1
+	"""
+	try:
+		search_query = search_query + " site:youtube.com"
+		search_results = list(search(search_query, num=1, stop=1, pause=2))
+		# The code is checking if there are any search results available. If there are search results,
+		# it assigns the first result to the variable `video_url`. It then opens the `video_url` in a web
+		# browser. It replaces the string "site:youtube.com" in the `search_query` with an empty string.
+		# Finally, it prints a message indicating that the search query is being played from YouTube and
+		# speaks the same message.
+		if search_results:
+			video_url = search_results[0]
+			webbrowser.open(video_url)
+			search_query = search_query.replace("site:youtube.com" , "")
+			print(f"Played {search_query} from YouTube")
+			speak(f"Playing {search_query} from YouTube")
+		# The code is a snippet of Python code that is handling a condition where there are no search
+		# results found on YouTube. It prints a message to the console saying "No search results found on
+		# YouTube." and also uses a function called "speak" to speak the message "Sorry, I couldn't find any
+		# relevant results on YouTube."
+		else:
+			print("No search results found on YouTube.")
+			speak("Sorry, I couldn't find any relevant results on YouTube.")
+	except Exception as e:
+		print("Error:", e)
+		speak("Sorry, I couldn't play the music from YouTube.")
+
+
+
+
+def open_application(application_name):
+	"""_summary_ : The function `open_application` opens a specified application and provides feedback on whether it
+	was successful or not.
+
+	Args:
+		application_name (String): The parameter `application_name` is a string that represents the name or
+	path of the application you want to open. It can be the name of a program installed on your computer
+	or the path to the executable file of the application
+
+	**Since : 0.2.1
+	"""
+	try:
+		os.startfile(application_name)
+		print(f"{application_name} opened")
+		speak(f"{application_name} opened")
+	except Exception as e:
+		print("Error:", e)
+		speak(f"Sorry, I couldn't open {application_name}")
+
 
 
 ################# Main Function Follows ::::::::::::::::::::::::::::::;;;;
@@ -141,9 +203,17 @@ def playMusicFromYouTube(search_query):
 
 if __name__ == "__main__":
 	
+	user_wants_to_type = False
 	wishMe()
+	speak("Remember , you can command me by typing. If you want to command by typing, speak so")
+	print("If you want to command me by typing , speak : I want to type")
 	while (True):
-		query = takeCommand().lower()
+		if(user_wants_to_type) : 
+			speak("Enter your command: ")
+			query = input("\nEnter your command : ")
+			query = query.lower()
+		else : 
+			query = takeCommand().lower()
 		# The code block is checking if the word "wikipedia" is present in the user's query. If
 		# it is, the code removes the word "wikipedia" from the query and uses the `wikipedia` library to
 		# search for a summary of the remaining query on Wikipedia. It retrieves the summary of the query
@@ -168,6 +238,7 @@ if __name__ == "__main__":
 		if "play" in query and "from youtube" in query:
 			music_query = query.replace("play", "").replace("from youtube", "").strip()
 			playMusicFromYouTube(music_query)
+			
 
 		# The code block elif ("open youtube" in query): is checking if the
 		# user's query contains the phrase "open youtube". If it does, it opens the YouTube website in the
@@ -176,6 +247,7 @@ if __name__ == "__main__":
 		elif ("open youtube" in query):
 			try:
 				webbrowser.open("https://www.youtube.com")
+				print("Youtube opened via your default browser")
 				speak("Do you want me to play anymusic?")
 				query = takeCommand.lower()
 				if "yes" in query:
@@ -188,6 +260,7 @@ if __name__ == "__main__":
 					playMusicFromYouTube(music_query)
 				else:
 					speak("Aborting playing music and Waiting on the next command...")
+					print("User does not want me to play anything from youtube")
 
 			except Exception as e:
 					print("An error occurred:", e)
@@ -198,6 +271,7 @@ if __name__ == "__main__":
 		# saying "open google" to the personal assistant.
 		elif ("open google" in query):
 			webbrowser.open("https://www.google.com")
+			print("Google opened via your default browser")
 
 		# The code block elif ("open facebook" in query): checking if the user's query contains the phrase "open
 		# facebook". If it does, it opens the Facebook website in the default web browser using the
@@ -205,6 +279,7 @@ if __name__ == "__main__":
 		# saying "open facebook" to the personal assistant.
 		elif ("open facebook" in query):
 			webbrowser.open("https://www.facebook.com")
+			print("Facebook opened via your default browser")
 
 		# The code block elif ("open gmail" in query): is checking if the user's query contains the phrase "open gmail".
 		# If it does, it opens the Gmail website in the default web browser using the `webbrowser.open()`
@@ -212,6 +287,7 @@ if __name__ == "__main__":
 		# the personal assistant.
 		elif ("open gmail" in query):
 			webbrowser.open("https://www.gmail.com")
+			print("Gmail opened via your default browser")
 		
 		# The code block elif ("open linkedin" in query): is checking if
 		# the user's query contains the phrase "open linkedin". If it does, it opens the LinkedIn website in
@@ -219,6 +295,7 @@ if __name__ == "__main__":
 		# access the LinkedIn website by simply saying "open linkedin" to the personal assistant.
 		elif ("open linkedin" in query):
 			webbrowser.open("https://www.linkedin.com")
+			print("LinkedIN opened via your default browser")
 		
 		# The code block elif ("open chatgpt" in query): is checking if
 		# the user's query contains the phrase "open chatgpt". If it does, it opens the ChatGPT website
@@ -227,6 +304,7 @@ if __name__ == "__main__":
 		# assistant.
 		elif ("open chat gpt" in query):
 			webbrowser.open("https://www.chat.openai.com")
+			print("ChatGPT opened via your default browser")
 
 		# The code block `elif ("play music" in query)` is checking if the user's query contains the phrase
 		# "play music". If it does, it tries to access a specified directory where the music files are
@@ -250,16 +328,23 @@ if __name__ == "__main__":
 		# assistant to provide the user with the current time when asked.
 		elif ("the time" in query) :
 			strTime = datetime.datetime.now().strftime("%H:%M:%S")
-			print("The current date and time are: " , strTime)
-			speak(f"Sir, The time is, {strTime}")
+			print("The current time is: " , strTime)
+			speak(f"The time is, {strTime}")
 
-		# The code block elif (("open code" or "visual studio code") in query):  is
-		# checking if the user's query contains the phrase "open code" or "visual studio code". If it does,
-		# it opens the Visual Studio Code application by using the `os.startfile()` function and passing the
-		# path of the application executable file as an argument. This allows the user to easily open Visual
-		# Studio Code by simply saying "open code" or "visual studio code" to the personal assistant.
-		elif (("open code" or "visual studio code") in query):
-			os.startfile("C:\\Users\\Teertha\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
+	
+		# The code is checking if the query contains the phrase "open code" or "open visual studio
+		# code". If either of these phrases is present, it will call the function "open_application" and
+		# pass the argument "Visual Studio Code.exe".
+		elif (("open code" in query) or ("open visual studio code" in query)):
+			open_application("Visual Studio Code.exe")
+			
+		# The code is checking if the string "open notepad in query" is present. If it is, it will
+		# open the Notepad application.
+		elif "open notepad" in query:
+			open_application("notepad.exe")
+
+		elif "open chrome" in query:
+			open_application("chrome.exe")
 
 		# The code block `elif ("email to me" in query)` is checking if the user's query contains the phrase
 		# "email to me". If it does, it prompts the user to provide the content of the email by saying "What
@@ -271,7 +356,7 @@ if __name__ == "__main__":
 			try:
 				speak("What should i write ?")
 				content = takeCommand()
-				#
+				# to be written...
 				speak("the email has been sent")
 			except Exception as e:
 				print("Error :" , e)
@@ -280,7 +365,7 @@ if __name__ == "__main__":
 		elif ("google" in query):
 			search_query = query.replace("google" , "").strip()
 			googleSearch(search_query)
-		
+				
 		# The code snippet that handles a query related to weather. It first checks
 		# if the word "weather" is present in the query. If it is, it extracts the search query by removing
 		# the phrase "what is" and any leading or trailing spaces.
@@ -297,6 +382,7 @@ if __name__ == "__main__":
 					search_result = soup.find("div", class_="BNeawe iBp4i AP7Wnd")
 					if search_result:
 						speak(search_result.get_text())
+						print(search_result.get_text())
 					else:
 						speak("I'm sorry, I couldn't find weather.")
 				except Exception as e:
@@ -329,7 +415,8 @@ if __name__ == "__main__":
 		# The above code is checking if the string "how do you work?" is present in the variable "query". If
 		# it is, then it will execute the code inside the if statement, which includes speaking a response.
 		elif("how do you work?" in query):
-			speak("le that be a secret , but you can explore me ")
+			speak("let that be a secret , but you can explore me")
+			print(":)")
 		
 		# The code snippet that handles a query containing the word "where". It
 		# performs search query on google and speaks the result.
@@ -371,5 +458,20 @@ if __name__ == "__main__":
 		# exit the program with a status code of 0.
 		elif ("quite" in query or "exit" in query):
 			speak("Thank you for using me. Talk to you later. Bye")
+			print("Thank you.")
 			break
 
+		# The code is checking if the string "i" and "type" are present in the variable "query". If
+		# both conditions are true, it sets the variable "user_wants_to_type" to True and speaks a message
+		# informing the user that they will be typing to command the program.
+		elif ("i" in query and "type" in query):
+			user_wants_to_type = True
+			speak("You will be typing to command me now. If you want to speak instead, write I want to speak")
+
+		# The code is checking if the string "i" is present in the variable "query" and if the string
+		# "speak" is present in the variable "query". If both conditions are true, it sets the variable
+		# "user_wants_to_type" to False and calls the function "speak" with the argument "You can command me
+		# by saying anything. And you know how to type to command me".
+		elif ("i" in query and "speak" in query):
+			user_wants_to_type = False
+			speak("You can command me by saying anything. And you know how to type to command me")
