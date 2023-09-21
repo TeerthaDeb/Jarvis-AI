@@ -23,6 +23,7 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.parse
 from googlesearch import search
+import openai
 
 # The code is initializing the pyttsx3 text-to-speech engine using the 'sapi5' speech synthesis API. 
 # It then retrieves the available voices and sets the voice to be used as the second voice in the list (Zira).
@@ -30,6 +31,9 @@ engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voices' , voices[1].id) ## [0] : david , [1] : Zira
 
+# The code is setting the OpenAI API key to a specific value.
+openai.api_key = "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"
+model_engine = "gpt-3.5-turbo" 
 
 def speak(audio):
 	"""
@@ -197,14 +201,79 @@ def open_application(application_name):
 		speak(f"Sorry, I couldn't open {application_name}")
 
 
+def send_email_with_selenium(recipient_email, subject, content):
+	### !!!!!!!!!!!!!!!! Not Ready Yet........................
+	"""This function sends email using your default web browser
+
+	Args:
+		recipient_email [string]: xxxx@xxxx.com
+		subject (string): The subject of the email
+		content (string): Content to send
+	"""
+	try:
+        # Open Gmail in the default web browser
+		webbrowser.open("https://mail.google.com")
+
+        # Initialize the Chrome web driver
+		driver = webdriver.Chrome(executable_path='path_to_chromedriver.exe')  # Replace with the path to your ChromeDriver executable
+		driver.maximize_window()
+
+        # Wait for the Gmail page to load
+		time.sleep(5)
+
+        # Compose a new email
+		compose_button = driver.find_element_by_xpath("//div[text()='Compose']")
+		compose_button.click()
+		time.sleep(2)  # Wait for the compose window to load
+
+        # Enter recipient's email address and subject
+		to_field = driver.find_element_by_name("to")
+		to_field.send_keys(recipient_email)
+		subject_field = driver.find_element_by_name("subjectbox")
+		subject_field.send_keys(subject)
+
+        # Enter email content
+		email_body = driver.find_element_by_xpath("//div[@aria-label='Message Body']")
+		email_body.send_keys(content)
+
+        # Send the email or save as draft
+		send_button = driver.find_element_by_xpath("//div[text()='Send']")
+		send_it = input("Send the email? (yes/no): ").lower()
+		if "yes" in send_it:
+			send_button.click()
+			print("Email sent.")
+		else:
+            # Save the email as a draft
+			driver.find_element_by_xpath("//div[text()='Close']").click()
+			print("Email saved as a draft.")
+	
+	except Exception as e:
+		print("Error:", e)
+		
+	finally:
+        # Close the browser window
+		driver.quit()
+
+def ask_chatgpt(question):
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        n=1,
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant with exciting, interesting things to say."},
+            {"role": "user", "content": question},
+        ])
+
+    message = response.choices[0]['message']
+    return message['content']
+
 
 ################# Main Function Follows ::::::::::::::::::::::::::::::;;;;
 
 
 if __name__ == "__main__":
 	
-	user_wants_to_type = False
-	wishMe()
+	user_wants_to_type = True
+	#wishMe()
 	speak("Remember , you can command me by typing. If you want to command by typing, speak so")
 	print("If you want to command me by typing , speak : I want to type")
 	while (True):
@@ -302,24 +371,47 @@ if __name__ == "__main__":
 		# (chat.openai.com) in the default web browser using the `webbrowser.open()` function. This allows
 		# the user to easily access the ChatGPT website by simply saying "open chatgpt" to the personal
 		# assistant.
-		elif ("open chat gpt" in query):
+		elif ("open chat gpt" in query or "open gpt" in query):
 			webbrowser.open("https://www.chat.openai.com")
 			print("ChatGPT opened via your default browser")
 
-		# The code block `elif ("play music" in query)` is checking if the user's query contains the phrase
-		# "play music". If it does, it tries to access a specified directory where the music files are
-		# stored. It then retrieves a list of the music files in that directory using the `os.listdir()`
-		# function and stores it in the `songs` variable. Finally, it plays the first song in the list by
-		# using the `os.startfile()` function and passing the path of the song file as an argument. If there
-		# is an error during this process, it prints the error message.
-		elif ("play music" in query):
+		# This code handles the functionality of playing music. It allows the user to specify a music directory and plays songs from that directory.
+		# Updated on : <0.2.2>
+		# Functionality:
+		# - Checks if the specified music directory exists and creates it if it doesn't.
+		# - Checks if a music directory path is already assigned in a file and reads it.
+		# - If the music directory path is not assigned, prompts the user to enter it and saves it in the file.
+		# - Lists the songs in the music directory and plays the first song.
+		# - Provides appropriate messages for scenarios where no songs are found or if there are errors in the process.
+		elif "play" in query and ("music" in query or "song" in query):
 			try:
-				music_dir = "" #Enter your directory here:::::::::::::::
+				music_dir = "C:\\Users\\Public\\Documents\\TDsoftwares\\JarvisAI\\MusicDirectory"
+				# Check if the music directory exists, and create it if it doesn't
+				if not os.path.exists(music_dir):
+					os.makedirs(music_dir)
+				#Check if a music directory path is already assigned
+				music_dir_file_path = os.path.join(music_dir, "music_directory.txt")
+				if os.path.exists(music_dir_file_path):
+					with open(music_dir_file_path, "r") as file_in_directory:
+						music_dir = file_in_directory.read().strip()
+				else:
+					speak("Music Directory is not assigned yet. Please copy and paste the music path to continue listening: ")
+					music_dir = input("Music Directory is not assigned yet. Please copy and paste the music path to continue listening: ")
+					with open(music_dir_file_path, "w") as file_in_directory:
+						file_in_directory.write(music_dir)
+				
 				songs = os.listdir(music_dir)
-				print(songs)
-				os.startfile(os.path.join(music_dir , songs[0]))
+				if len(songs) == 0:
+					speak("No songs found in the music directory.")
+					print("No songs found in the music directory.")
+				else:
+					speak("Playing songs.")
+					print("Playing Songs: ", songs)
+					os.startfile(os.path.join(music_dir, songs[0]))
 			except Exception as e:
-				print("Error :" , e)
+				print("Error:", e)
+				speak("Sorry, I couldn't play the music.")
+
 		
 		# The code block `elif ("the time" in query)` is checking if the user's query contains the phrase
 		# "the time". If it does, it retrieves the current time using the
@@ -357,10 +449,25 @@ if __name__ == "__main__":
 				speak("What should i write ?")
 				content = takeCommand()
 				# to be written...
-				speak("the email has been sent")
+				speak("The content that were written: ")
+				print(content)
+				speak(content)
+				print(content)
+				ask_Confirmation = input("Should I send it?")
+				speak("Should I send it?")
+				if("e" in ask_Confirmation and "s" in ask_Confirmation):
+					speak("Enter the email address to be sent: ")
+					receiverEmailAddress = input("enter receivers email: ")
+					speak("What is the subject is the email: ")
+					subject = takeCommand()
+					speak("Trying to send the email")
+					send_email_with_selenium(receiverEmailAddress , subject , content)
+				else:
+					speak("You aborted the operation")
+					print("You aborted the operation")
 			except Exception as e:
 				print("Error :" , e)
-				speak("Sorry , I was not able to send the email. dueto " , e)
+				speak("Sorry , I was not able to send the email. due to ")
 		
 		elif ("google" in query):
 			search_query = query.replace("google" , "").strip()
@@ -475,3 +582,14 @@ if __name__ == "__main__":
 		elif ("i" in query and "speak" in query):
 			user_wants_to_type = False
 			speak("You can command me by saying anything. And you know how to type to command me")
+
+		else:
+			try:
+				response_from_gpt = ask_chatgpt(query)
+				print(response_from_gpt)
+				speak("According to Chat Gpt: ")
+				speak(response_from_gpt)
+			
+			except Exception as e:
+				print("I tried GPT, but failed to response due to :" , e)
+				speak("I tried GPT, but failed to response")
