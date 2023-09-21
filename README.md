@@ -27,7 +27,17 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 2. Install required libraries using PIP:
 
    ```bash
-   pip install pyttsx3 speechrecognition wikipedia webbrowser smtplib bs4 requests urllib googlesearch-python pytube pywhatkit
+   pip install pyttsx3
+   pip install speechrecognition
+   pip install wikipedia
+   pip install webbrowser
+   pip install smtplib
+   pip install bs4
+   pip install requests
+   pip install urllib
+   pip install googlesearch-python
+   pip install pytube
+   pip install pywhatkit
    ```
 
 3. Launch the `jarvis.py` script:
