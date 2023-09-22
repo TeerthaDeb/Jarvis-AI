@@ -1,4 +1,4 @@
-# Jarvis-AI Beta 0.2.2
+# Jarvis-AI Beta 0.4.9
 
 ## Your Personal Assistant
 
@@ -14,7 +14,8 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 - Enables music playback from YouTube.
 - Facilitates sending emails effortlessly.
 - Provides real-time weather information.
-- Can Play Music if you provide correct directory. <0.2.2>
+- Can Play Music if you provide correct directory. <0.4.9>
+- GPT Integration(trial Mode) <0.4.9>
 - And more...
 
 ### Installation
@@ -28,7 +29,18 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 2. Install required libraries using PIP:
 
    ```bash
-   pip install pyttsx3 speechrecognition wikipedia webbrowser smtplib bs4 requests urllib googlesearch-python pytube pywhatkit
+   pip install pyttsx3
+   pip install speechrecognition
+   pip install wikipedia
+   pip install webbrowser
+   pip install smtplib
+   pip install bs4
+   pip install requests
+   pip install urllib
+   pip install googlesearch-python
+   pip install pytube
+   pip install pywhatkit
+   pip install openai
    ```
 
 3. Launch the `jarvis.py` script:
@@ -52,6 +64,11 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* User can Type and Speak to command Jarvis
 		* Opens some application using "Open Application function"
 		* Better at playing youtube videos
+		
+	#Version Beta 0.4.9
+		* Able to Play Music
+		* Issue on sending emails
+		* GPT integration (Trial Mode)
 
 ### Contributing
 
