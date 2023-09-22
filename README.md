@@ -1,4 +1,4 @@
-# Jarvis-AI Beta 0.4.9
+# Jarvis-AI Beta 0.4.9 on September 21, 2023
 
 ## Your Personal Assistant
 
@@ -32,11 +32,8 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install pyttsx3
    pip install speechrecognition
    pip install wikipedia
-   pip install webbrowser
-   pip install smtplib
    pip install bs4
    pip install requests
-   pip install urllib
    pip install googlesearch-python
    pip install pytube
    pip install pywhatkit
