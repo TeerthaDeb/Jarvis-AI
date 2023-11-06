@@ -37,7 +37,9 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install googlesearch-python
    pip install pytube
    pip install pywhatkit
+   pip install cmake
    pip install openai
+   pip install selemium
    ```
 
 3. Launch the `jarvis.py` script:
@@ -66,6 +68,15 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Able to Play Music
 		* Issue on sending emails
 		* GPT integration (Trial Mode)
+
+   #Version Beta 0.4.91
+      * '''bash
+      pip install selenium
+      '''
+		* Better Weather using web scrapping.
+		* Some features are still in development.
+		* ChatGPT is Uniavailable in this version as it requires premium subscription.
+		* Google Bard is being introduced.
 
 ### Contributing
 
