@@ -8,22 +8,29 @@
 		* User can Type and Speak to command Jarvis
 		* Opens some application using "Open Application function"
 		* Very good at searching youtube Videos
+
 	Changes on Beta 0.4.9
 		* Able to Play Music
 		* Issue on sending emails
 		* GPT integration (Trial Mode)
+
 	Changes on Beta 0.4.91
 		* Better Weather using web scrapping.
 		* Some features are still in development.
 		* ChatGPT is Uniavailable in this version as it requires premium subscription.
 		* Google Bard is being introduced.
+		
+	Changes on Beta 0.4.92
+		* Modules are on different files so easy to debug.
+		* Playing song from youtube is perfect noew.
+		* It can now tell a joke.
+		* Next version will be dedicated on Google Bard or User Based design.
+
 '''
 
 
 # The code script that imports various libraries and modules to perform different tasks.
-import pyttsx3
 import datetime
-import speech_recognition as sr
 import wikipedia
 import os
 import webbrowser
@@ -32,29 +39,16 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.parse
 from googlesearch import search
-import weather
+import Joke
 # import openai
-import time
 
 
-
-# The code is initializing the pyttsx3 text-to-speech engine using the 'sapi5' speech synthesis API. 
-# It then retrieves the available voices and sets the voice to be used as the second voice in the list (Zira).
-engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')
-engine.setProperty('voices' , voices[1].id) ## [0] : david , [1] : Zira
-
-
-
-def speak(audio):
-	"""
-	The function "speak" takes an audio input and uses a text-to-speech engine to speak the audio.
-	
-	@param audio [string] : The audio parameter represents the text or speech that you want the
-	computer to say or speak out loud
-	"""
-	engine.say(audio)
-	engine.runAndWait()
+from Weather import find_weather_element
+from Speak import speak
+from TakeCommand import takeCommand
+from OpenApplication import open_application
+from GoogleSearch import googleSearch
+from tryYoutube import playMusicFromYouTube
 
 
 
@@ -71,50 +65,7 @@ def wishMe():
 	else:
 		speak("Good Evening Sir !")
 
-	speak("I am your personal assistant. Please tell me how may I help you?")
-
-
-
-
-def takeCommand():
-	"""
-	The `takeCommand` function uses the `speech_recognition` library to convert audio input from the
-	user into text.
-	return: The function `takeCommand()` returns the user's speech input as a string. If the speech
-	input is successfully recognized, it returns the recognized text. If there is an exception or error
-	during the speech recognition process, it returns the string "None".
-	"""
-
-	# The code block is using the `speech_recognition` library to capture audio input from
-	# the user using the microphone.
-	r = sr.Recognizer()
-	with sr.Microphone() as source:
-		print("Listening...")
-		r.pause_threshold = 1
-		audio = r.listen(source)
-	
-	# The code block you provided is using the `recognize_google` function from the `speech_recognition`
-	# library to convert the audio input from the user into text.
-	try:
-		print("Recongnizing...")
-		query = r.recognize_google(audio , language = 'en-us')
-		print(f"User Said: {query}\n")
-
-	
-	# The code block you provided is handling exceptions that may occur during the speech recognition
-	# process.
-	except sr.UnknownValueError:
-		print("Sorry, I didn't understand that.")
-		query = "None"
-	except sr.RequestError:
-		print("I'm having trouble connecting to the internet.")
-		query = "None"
-	except Exception as e:
-		print("Exception : " , e)
-		print("Say that again please....")
-		return "None"
-
-	return query
+	speak("I am your personal assistant, Jarvis. Please tell me how may I help you?")
 
 
 
@@ -136,142 +87,6 @@ def sendEmail(to , content):
 	server.sendmail("d_mahar@concordia.ca" , to , content)
 	server.close()
 
-
-
-def googleSearch(contentToSearch):
-	"""_summary_ : This function takes a content to search as input, opens a Google search page with the
-	given content, and retrieves the top 3 search results and speaks them out.
-
-	Args:
-		contentToSearch (string): the content to be searched 
-	"""
-	try:
-		for i in search(query, tld="co.in", num=1, stop=1, pause=2):
-			webDomain = i.replace("https://www." , " ")
-			finalWebDomain = ""
-			for j in webDomain:
-				if (j != '/'):
-					finalWebDomain += j
-				else:
-					break
-			speak("According to : " + finalWebDomain)
-			print("web address: " + i)
-			webbrowser.open(i)
-	except Exception as e:
-			print("Error : " , e)
-
-
-
-
-def playMusicFromYouTube(search_query):
-	""" The above code performing a search query on YouTube using the `search` function. It appends 
-		site:youtube.com" to the search query to ensure that the search results are limited to YouTube.
-
-	Args:
-		search_query (String): The video to be played.
-
-		** Since 0.2
-		** Updated on 0.2.1
-	"""
-	try:
-		search_query = search_query + " site:youtube.com"
-		search_results = list(search(search_query, num=1, stop=1, pause=2))
-		# The code is checking if there are any search results available. If there are search results,
-		# it assigns the first result to the variable `video_url`. It then opens the `video_url` in a web
-		# browser. It replaces the string "site:youtube.com" in the `search_query` with an empty string.
-		# Finally, it prints a message indicating that the search query is being played from YouTube and
-		# speaks the same message.
-		if search_results:
-			video_url = search_results[0]
-			webbrowser.open(video_url)
-			search_query = search_query.replace("site:youtube.com" , "")
-			print(f"Played {search_query} from YouTube")
-			speak(f"Playing {search_query} from YouTube")
-		# The code is a snippet of Python code that is handling a condition where there are no search
-		# results found on YouTube. It prints a message to the console saying "No search results found on
-		# YouTube." and also uses a function called "speak" to speak the message "Sorry, I couldn't find any
-		# relevant results on YouTube."
-		else:
-			print("No search results found on YouTube.")
-			speak("Sorry, I couldn't find any relevant results on YouTube.")
-	except Exception as e:
-		print("Error:", e)
-		speak("Sorry, I couldn't play the music from YouTube.")
-
-
-
-
-def open_application(application_name):
-	"""_summary_ : The function `open_application` opens a specified application and provides feedback on whether it
-	was successful or not.
-
-	Args:
-		application_name (String): The parameter `application_name` is a string that represents the name or
-	path of the application you want to open. It can be the name of a program installed on your computer
-	or the path to the executable file of the application
-
-	**Since : 0.2.1
-	"""
-	try:
-		os.startfile(application_name)
-		print(f"{application_name} opened")
-		speak(f"{application_name} opened")
-	except Exception as e:
-		print("Error:", e)
-		speak(f"Sorry, I couldn't open {application_name}")
-
-
-
-
-def send_email_with_selenium(recipient_email, subject, content):
-	### !!!!!!!!!!!!!!!! Not Ready Yet........................
-	"""This function sends email using your default web browser
-
-	Args:
-		recipient_email [string]: xxxx@xxxx.com
-		subject (string): The subject of the email
-		content (string): Content to send
-	"""
-	try:
-        # Open Gmail in the default web browser
-		webbrowser.open("https://www.gmail.com")
-        # Initialize the Chrome web driver
-		
-        # Wait for the Gmail page to load
-		time.sleep(5)
-
-        # Compose a new email
-		compose_button = driver.find_element_by_xpath("//div[text()='Compose']")
-		compose_button.click()
-		time.sleep(2)  # Wait for the compose window to load
-
-        # Enter recipient's email address and subject
-		to_field = driver.find_element_by_name("to")
-		to_field.send_keys(recipient_email)
-		subject_field = driver.find_element_by_name("subjectbox")
-		subject_field.send_keys(subject)
-
-        # Enter email content
-		email_body = driver.find_element_by_xpath("//div[@aria-label='Message Body']")
-		email_body.send_keys(content)
-
-        # Send the email or save as draft
-		send_button = driver.find_element_by_xpath("//div[text()='Send']")
-		send_it = input("Send the email? (yes/no): ").lower()
-		if "yes" in send_it:
-			send_button.click()
-			print("Email sent.")
-		else:
-            # Save the email as a draft
-			driver.find_element_by_xpath("//div[text()='Close']").click()
-			print("Email saved as a draft.")
-	
-	except Exception as e:
-		print("Error:", e)
-		
-	finally:
-        # Close the browser window
-		driver.quit()
 
 
 
@@ -303,26 +118,28 @@ def send_email_with_selenium(recipient_email, subject, content):
 # 	return message
 
 def chat_with_google_bard():
-	query = "What is the meaning of life?"
+	query = ""
 	response = google_bard.generate_text(query, api_key=API_KEY)
 	print("Google Bard Response (Using google_bard Module):")
 	speak(response)
 
 
-################# Main Function Follows ::::::::::::::::::::::::::::::;;;;
+######################################################################################################################### Main Function Follows :::::::::::::::::::;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::::::::::::;;;;
 
 
 if __name__ == "__main__":
 	
-	user_wants_to_type = False
+	user_wants_to_type = False   ### Check this
 	wishMe()
-	speak("Remember , you can command me by typing. If you want to command by typing, speak so")
+	speak("Just to let you know that, you can command me by typing. If you want to command by typing, speak so")
 	print("If you want to command me by typing , speak : I want to type")
 	while (True):
+
 		if(user_wants_to_type) : 
 			speak("Enter your command: ")
 			query = input("\nEnter your command : ")
 			query = query.lower()
+		
 		else : 
 			query = takeCommand().lower()
 		# The code block is checking if the word "wikipedia" is present in the user's query. If
@@ -331,6 +148,8 @@ if __name__ == "__main__":
 		# and stores it in the `results` variable. The `sentences` parameter specifies the number of
 		# sentences to include in the summary, in this case, it is set to 2. The code then prints the
 		# results and speaks it using the `speak` function.
+		
+		
 		if ("wikipedia" in query):
 			speak("Searching Wikipedia...")
 			query = query.replace("wikipedia" , "")
@@ -346,7 +165,7 @@ if __name__ == "__main__":
 		# The code is checking if the query contains the words "play" and "from youtube". If it does,
 		# it extracts the music query by removing the words "play" and "from youtube" from the query and
 		# then calls the function `playMusicFromYouTube` with the extracted music query as an argument.
-		if "play" in query and "from youtube" in query:
+		elif "play" in query and "from youtube" in query:
 			music_query = query.replace("play", "").replace("from youtube", "").strip()
 			playMusicFromYouTube(music_query)
 			
@@ -519,9 +338,9 @@ if __name__ == "__main__":
 		elif "weather" in query or ("temperature" in query and "now" in query):
 			
 			try:
-				temp = weather.find_weather_element()
+				temp = find_weather_element()
 				print( temp + " degree Celcious")
-				speak("The Temerature is :" + temp + " degree celcious")
+				speak("The Temerature is :" + temp + " celcious")
 			except Exception as e:
 				print("Error:", e)
 	
@@ -540,6 +359,49 @@ if __name__ == "__main__":
 				# If not found on Wikipedia, search on Google
 			except Exception as e:
 				googleSearch(search_query)
+
+
+		# The above code is a Python code snippet that handles a query asking "who is" a certain person.
+		## Since : 0.4.92
+		elif "who is" in query:
+			person_to_search = query.replace("who is", "").strip()
+
+			# Attempt to find information on Wikipedia
+			try:
+				wikipedia_results = wikipedia.summary(person_to_search, sentences=3)
+				print(wikipedia_results)
+				speak(f"According to Wikipedia, {wikipedia_results}")
+			
+			# If not found on Wikipedia, search on Google
+			except wikipedia.exceptions.DisambiguationError as e:
+				print(f"DisambiguationError: {e}")
+				speak(f"Searching for {person_to_search} on Google.")
+				
+				# You can implement your Google search logic here
+				googleSearch(person_to_search)
+			
+			except Exception as e:
+				print(f"Error while searching for {person_to_search} on Wikipedia: {e}")
+				speak(f"Sorry, I couldn't find information about {person_to_search} on Wikipedia.")
+				speak(f"Please ensure that {person_to_search} is on Wikipedia for accurate results.")
+
+		# The above code is checking if the string "Joke" is present in the variable "query". If it is, it
+		# calls the function "tellJoke()" to tell a joke.
+		# Since : 0.4.92 
+		elif "joke" in query:
+			# Extracting the topic from the query
+			split_query = query.split("joke", 1)  # Split the query at the word "joke"
+			
+			if len(split_query) > 1 and split_query[1].strip():  # Check if there's content after "joke"
+				topic = split_query[1].strip().split()  # Extract the topic after "joke"
+				if len(topic) > 1:
+					print("Topic:", topic[1])
+					Joke.tell_joke(topic[1])
+				else:
+					Joke.tell_joke(topic[0])  # If there's only one word after "joke", treat it as the topic
+			else:
+				Joke.tell_joke()  # No specific topic mentioned, tell a random joke
+
 
 
 		# The code checks if the string "thank you" is
@@ -581,6 +443,8 @@ if __name__ == "__main__":
 			except Exception as e:
 				print("Error:", e)
 				speak("Sorry, I couldn't open the website.")
+
+		
 		
 		# The code is checking if the string "who made you" is present in the variable "query". If it
 		# is, it will print a message and a link to the LinkedIn profile of Mr. Maharaj Teertha Deb.

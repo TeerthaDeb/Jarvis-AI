@@ -1,4 +1,4 @@
-# Jarvis-AI Beta 0.4.9 on September 21, 2023
+# Jarvis-AI Beta 0.4.9.2 on December 12, 2023
 
 ## Your Personal Assistant
 
@@ -16,6 +16,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 - Provides real-time weather information.
 - Can Play Music if you provide correct directory. <0.4.9>
 - GPT Integration(trial Mode) <0.4.9>
+- Can tell you random joke on special topics.
 - And more...
 
 ### Installation
@@ -40,6 +41,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install cmake
    pip install openai
    pip install selemium
+   pip install pyjokes
    ```
 
 3. Launch the `jarvis.py` script:
@@ -54,7 +56,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    - "Open YouTube"
    - "Play 'Calm Down' from YouTube"
    - "Tell me about Albert Einstein"
-   - "Send an email to me"
+   - "Tell me a joke about python"
    - "Exit" or "Quit"
 
 5. Change Log:
@@ -77,6 +79,15 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Some features are still in development.
 		* ChatGPT is Uniavailable in this version as it requires premium subscription.
 		* Google Bard is being introduced.
+
+   #Version Beta 0.4.92
+      * '''bash
+      pip install pyjokes
+      '''
+      * Modules are on different files so easy to debug.
+		* Playing song from youtube is perfect noew.
+		* It can now tell a joke.
+		* Next version will be dedicated on Google Bard or User Based design.
 
 ### Contributing
 
