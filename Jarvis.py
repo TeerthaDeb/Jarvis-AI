@@ -19,10 +19,10 @@
 		* Some features are still in development.
 		* ChatGPT is Uniavailable in this version as it requires premium subscription.
 		* Google Bard is being introduced.
-		
+
 	Changes on Beta 0.4.92
 		* Modules are on different files so easy to debug.
-		* Playing song from youtube is perfect noew.
+		* Playing song from youtube is perfect now.
 		* It can now tell a joke.
 		* Next version will be dedicated on Google Bard or User Based design.
 

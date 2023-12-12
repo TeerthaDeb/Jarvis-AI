@@ -82,7 +82,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
       pip install pyjokes
       '''
       * Modules are on different files so easy to debug.
-		* Playing song from youtube is perfect noew.
+		* Playing song from youtube is perfect now.
 		* It can now tell a joke.
 		* Next version will be dedicated on Google Bard or User Based design.
 
