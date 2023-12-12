@@ -1,4 +1,4 @@
-# Jarvis-AI Beta 0.4.9.2 on December 12, 2023
+# Jarvis-AI Beta 0.4.9 on September 21, 2023
 
 ## Your Personal Assistant
 
@@ -71,10 +71,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Issue on sending emails
 		* GPT integration (Trial Mode)
 
-   #Version Beta 0.4.91
-      * '''bash
-      pip install selenium
-      '''
+  	#Version Beta 0.4.91
 		* Better Weather using web scrapping.
 		* Some features are still in development.
 		* ChatGPT is Uniavailable in this version as it requires premium subscription.
