@@ -24,7 +24,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/TeerthaDeb/jarvis.git cd jarvis
+   git clone https://github.com/TeerthaDeb/Jarvis-AI.git
    ```
 
 2. Install required libraries using PIP:
