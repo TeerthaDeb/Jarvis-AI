@@ -61,30 +61,40 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 
 5. Change Log:
 
-	#Version Beta : 0.2.1:
+	## Version Beta : 0.2.1:
 		* User can Type and Speak to command Jarvis
 		* Opens some application using "Open Application function"
 		* Better at playing youtube videos
 		
-	#Version Beta 0.4.9
+	## Version Beta 0.4.9
 		* Able to Play Music
 		* Issue on sending emails
 		* GPT integration (Trial Mode)
 
-  	#Version Beta 0.4.91
+   ## Version Beta 0.4.91
 		* Better Weather using web scrapping.
 		* Some features are still in development.
 		* ChatGPT is Uniavailable in this version as it requires premium subscription.
 		* Google Bard is being introduced.
 
-   #Version Beta 0.4.92
-      * '''bash
-      pip install pyjokes
-      '''
-      * Modules are on different files so easy to debug.
-		* Playing song from youtube is perfect now.
-		* It can now tell a joke.
-		* Next version will be dedicated on Google Bard or User Based design.
+   ## Version Beta 0.4.92
+         ''' bash
+          pip install pyjokes
+         '''
+          * Modules are on different files so easy to debug.
+		    * Playing song from youtube is perfect now.
+		    * It can now tell a joke.
+		    * Next version will be dedicated on Google Bard or User Based design.
+
+   ## Version Stable 1.00
+          ``` bash
+          pip install pyttsx3==2.7
+          pip install openai
+          ```
+		    * Personalized Assistant.
+		    * GPT 3.5 : powered.
+		    * Improved Search Engine.
+		    * More Features.
 
 ### Contributing
 

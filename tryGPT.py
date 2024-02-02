@@ -1,38 +1,35 @@
-import spacy
+import openai
+from Speak import speak
 
-# Load the English language model
-nlp = spacy.load("en_core_web_sm")
 
-# Define a context (some text to ask questions about)
-context = """
-Hugging Face is a company based in New York City that specializes in natural language processing. 
-Their open-source library, Transformers, provides thousands of pre-trained models for various NLP tasks.
-"""
 
-while True:
-    # Get user input
-    question = input("Ask a question (or type 'exit' to quit): ")
 
-    if question.lower() == "exit":
-        break
+def ask_gpt(prompt : str , user_api_key : str):
+    client = openai.OpenAI(api_key = user_api_key)
+    gpt_assistant_prompt = "You are Jarvis, A personal Assistant" 
+    gpt_user_prompt = prompt
+    gpt_prompt = gpt_assistant_prompt, gpt_user_prompt
+    #print(gpt_prompt)
 
-    # Tokenize the context and question
-    context_tokens = [token.text.lower() for token in nlp(context)]
-    question_tokens = [token.text.lower() for token in nlp(question)]
+    message=[   
+                {"role": "assistant", "content" : "You are Jarvis, A personal Assistant"}, 
+                {"role": "user", "content": gpt_user_prompt}
+            ]
 
-    best_match = None
-    best_similarity = 0.0
 
-    # Compare question tokens to context tokens and find the best match
-    for sent in nlp(context).sents:
-        sent_tokens = [token.text.lower() for token in sent]
-        similarity = len(set(sent_tokens) & set(question_tokens)) / float(len(set(sent_tokens) | set(question_tokens)))
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages = message,
+        temperature = 0.2,
+        max_tokens = 256,
+        frequency_penalty = 0.0
+    )
 
-        if similarity > best_similarity:
-            best_similarity = similarity
-            best_match = sent.text
+    gpt_result = response.choices[0].message.content
 
-    if best_match and best_similarity > 0.5:  # Adjust the similarity threshold as needed
-        print(f"Answer: {best_match}")
-    else:
-        print("Sorry, I couldn't find an answer in the context.")
+    print(gpt_result)
+    speak(f"Accornig to GPT-3.5: , {gpt_result}")
+
+
+if __name__ == "__main__":
+    ask_gpt("define a pen in 50 words")
