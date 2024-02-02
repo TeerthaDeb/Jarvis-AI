@@ -15,5 +15,5 @@ def get_driver():
 
 def find_weather_element():
     driver = get_driver()
-    element = driver.find_element(by='xpath', value="/html/body/div[2]/div[5]/div[4]/div/div/div/section[1]/ol/li[1]/div/div/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]")
+    element = driver.find_element(by='xpath', value="/html/body/div[2]/div[6]/div[4]/div/div/div/div/section[1]/ol/li[1]/div/div/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]")
     return element.text

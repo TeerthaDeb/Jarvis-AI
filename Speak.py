@@ -15,3 +15,10 @@ def speak(audio : str):
 	"""
 	engine.say(audio)
 	engine.runAndWait()
+
+
+
+if __name__ == "__main__":
+	# Example usage:
+	print("Hello World")
+	speak("Hello, world! This is a sample voice output.")

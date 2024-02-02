@@ -30,7 +30,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 2. Install required libraries using PIP:
 
    ```bash
-   pip install pyttsx3
+   pip install pyttsx3==2.7
    pip install speechrecognition
    pip install wikipedia
    pip install bs4
@@ -40,7 +40,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install pywhatkit
    pip install cmake
    pip install openai
-   pip install selemium
+   pip install selenium
    pip install pyjokes
    ```
 

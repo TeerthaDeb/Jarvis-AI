@@ -40,6 +40,7 @@ import requests
 import urllib.parse
 from googlesearch import search
 import Joke
+
 # import openai
 
 
@@ -49,6 +50,7 @@ from TakeCommand import takeCommand
 from OpenApplication import open_application
 from GoogleSearch import googleSearch
 from tryYoutube import playMusicFromYouTube
+from WeatherVisual import Gen_report
 
 
 
@@ -71,6 +73,7 @@ def wishMe():
 
 
 def sendEmail(to , content):
+	
 	"""
 	!!! THIS FUNCTION IS NOT DONE YET.....
 	The function `sendEmail` sends an email to the specified recipient with the given content.
@@ -129,9 +132,9 @@ def chat_with_google_bard():
 
 if __name__ == "__main__":
 	
-	user_wants_to_type = False   ### Check this
-	wishMe()
-	speak("Just to let you know that, you can command me by typing. If you want to command by typing, speak so")
+	user_wants_to_type = True ### Check this
+	## wishMe()
+	## speak("Just to let you know that, you can command me by typing. If you want to command by typing, speak so")
 	print("If you want to command me by typing , speak : I want to type")
 	while (True):
 
@@ -328,10 +331,35 @@ if __name__ == "__main__":
 				print("Error :" , e)
 				speak("Sorry , I was not able to send the email. due to ")
 		
+		
 		elif ("google" in query):
+			# The code is checking if the word "google" is present in the variable "query". If it is, it
+			# removes the word "google" from the query and strips any leading or trailing whitespace. It then
+			# calls a function called "googleSearch" with the modified search query as an argument.
 			search_query = query.replace("google" , "").strip()
 			googleSearch(search_query)
-				
+		
+		
+		elif "weather" in query and "in" in query :
+			'''
+				This code presents weather visuals.
+
+				Since : 0.4.93
+
+				# The code is checking if the word "weather" and the word "in" are present in the query. If
+				# both words are present, it will extract the city name from the query and pass it to the function
+				# `Gen_report()` to generate a weather report for that city.
+			'''
+			
+			try:
+				cityName = query.split("in")[1].strip()
+				Gen_report(cityName)
+				speak("Weather visuals on your screen")
+			except Exception as e:
+				print("An error occurred while processing your request.")
+				print("Error: " , e)
+				speak("There was an error processing your request.")
+
 		# The code snippet that handles a query related to weather. It first checks
 		# if the word "weather" is present in the query. If it is, it extracts the search query by removing
 		# the phrase "what is" and any leading or trailing spaces.
