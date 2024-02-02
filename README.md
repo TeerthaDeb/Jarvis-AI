@@ -1,4 +1,4 @@
-# Jarvis-AI Beta 0.4.92 on December 12, 2023
+# Jarvis-AI Stable 1.00 on February 2nd , 2024
 
 ## Your Personal Assistant
 
@@ -17,6 +17,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 - Can Play Music if you provide correct directory. <0.4.9>
 - GPT Integration(trial Mode) <0.4.9>
 - Can tell you random joke on special topics.
+- Can use gpt to respond unfeeded answer. <1.00>
 - And more...
 
 ### Installation
