@@ -1,3 +1,12 @@
+__author__ = "Maharaj Teertha Deb" 
+__copyright__ = "Copyright 2023, Jarvis-AI" 
+__credits__ = ["Harris Ali Khan"] 
+__license__ = "MIT Licensing"  
+__version__ = "1.0.1"
+__maintainer__ = "Maharaj Teertha Deb" 
+__email__ = "maharaj.deb@mail.concordia.ca" 
+__status__ = "GPT is here, Bard and sending email is coming soon..." 
+
 import datetime
 import json
 import os
@@ -58,12 +67,32 @@ class User:
 
         self.gender = "Male" if gender[0].lower() == 'm' else "Female"
 
-    def set_pronunciation(self, pronunciation):
-        if pronunciation is None:
-            speak("What is your pronunciation")
-            pronunciation = self.get_user_input('pronunciation')
 
-        self.pronunciation = pronunciation
+    def set_pronunciation(self, pronunciation):
+        """
+			The function `set_pronunciation` sets the pronunciation of a given object based on user input or
+			default values.
+			
+			:param pronunciation: The `set_pronunciation` method is used to set the pronunciation attribute
+			of an object. If the pronunciation parameter is None, it prompts the user to input their
+			preferred pronunciation and then sets the pronunciation attribute based on the input. If the
+			input matches certain predefined values like "he", "him",
+            
+            updated on : 1.0.1
+		"""
+        if pronunciation is None:
+            speak("What is your pronunciation?")
+            pronunciation = self.get_user_input('pronunciation')
+            if pronunciation.lower() in ["he", "him" , "sir"]:
+                self.pronunciation = "sir"
+            elif pronunciation.lower() in ["she" , "her" , "madam"]:
+                self.pronunciation = "madam"
+            else:
+                self.pronunciation = self.name
+        else:
+            self.pronunciation = pronunciation
+
+
 
     def set_bard_api(self, bard_api):
         if bard_api is None:

@@ -1,0 +1,12 @@
+pyttsx3==2.7
+speechrecognition
+wikipedia
+bs4
+requests
+googlesearch-python
+pytube
+pywhatkit
+cmake
+openai
+selenium
+pyjokes

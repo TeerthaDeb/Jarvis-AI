@@ -1,3 +1,12 @@
+__author__ = "Maharaj Teertha Deb" 
+__copyright__ = "Copyright 2023, Jarvis-AI" 
+__credits__ = ["Harris Ali Khan"] 
+__license__ = "MIT Licensing"  
+__version__ = "1.0.1"
+__maintainer__ = "Maharaj Teertha Deb" 
+__email__ = "maharaj.deb@mail.concordia.ca" 
+__status__ = "GPT is here, Bard and sending email is coming soon..." 
+
 from selenium import webdriver
 
 def get_driver():

@@ -1,4 +1,4 @@
-# Jarvis-AI Stable 1.00 on February 2nd , 2024
+# Jarvis-AI Stable 1.0.1 on February 21st , 2024
 
 ## Your Personal Assistant
 
@@ -44,6 +44,12 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install selenium
    pip install pyjokes
    ```
+
+   or
+
+   ```bash
+   pip install -r requirements.txt
+   ``` 
 
 3. Launch the `jarvis.py` script:
 
@@ -96,6 +102,9 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		    * GPT 3.5 : powered.
 		    * Improved Search Engine.
 		    * More Features.
+
+	## Version Stable 1.0.1
+		Some minor fixes on Joke and User class.
 
 ### Contributing
 

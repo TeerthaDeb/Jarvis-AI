@@ -1,7 +1,11 @@
-#jervis 		: Beta 
-#created by 	: Maharaj Teertha Deb
-#linked IN 		: https://www.linkedin.com/in/maharaj-teertha-deb/
-#released on 	: September-21-2023
+__author__ = "Maharaj Teertha Deb" 
+__copyright__ = "Copyright 2023, Jarvis-AI" 
+__credits__ = ["Harris Ali Khan"] 
+__license__ = "MIT Licensing"  
+__version__ = "1.0.1"
+__maintainer__ = "Maharaj Teertha Deb" 
+__email__ = "maharaj.deb@mail.concordia.ca" 
+__status__ = "GPT is here, Bard and sending email is coming soon..." 
 
 '''
 	Changes on Beta 0.2.1 
@@ -91,14 +95,16 @@ def wish_User():
 		print(f"{boss.pronunciation},  Happy Birthday! You are {age} years old today.")
 		speak(f"Happy {age} th Birthday")
 	
+	call_them = boss.pronunciation
+
 	if hour>=0 and hour<12:
-		speak("Good Morning Sir !")
+		speak('Good Morning ! ${call_them}')
 	
 	elif hour>=12 and hour<18:
-		speak("Good Afternoon Sir !")
+		speak('Good AfterNoon ! ${call_them}')
 	
 	else:
-		speak("Good Evening Sir !")
+		speak('Good Morning ! ${call_them}')
 
 	speak("I am your personal assistant, Jarvis. Please tell me how may I help you?")
 
@@ -133,7 +139,7 @@ if __name__ == "__main__":
 
 	User_Set_UP()
 	
-	user_wants_to_type = True ### Check this
+	user_wants_to_type = False ### Check this
 	wish_User()
 	
 	print("If you want to command me by typing , speak : I want to type")
@@ -451,11 +457,11 @@ if __name__ == "__main__":
 				topic = split_query[1].strip().split()  # Extract the topic after "joke"
 				if len(topic) > 1:
 					print("Topic:", topic[1])
-					Joke.tell_joke(topic[1])
+					Joke.tell_joke(boss , topic[1])
 				else:
-					Joke.tell_joke(topic[0])  # If there's only one word after "joke", treat it as the topic
+					Joke.tell_joke(boss , topic[0])  # If there's only one word after "joke", treat it as the topic
 			else:
-				Joke.tell_joke()  # No specific topic mentioned, tell a random joke
+				Joke.tell_joke(boss)  # No specific topic mentioned, tell a random joke
 
 
 		# The code checks if the string "thank you" is
@@ -539,7 +545,7 @@ if __name__ == "__main__":
 			'''
 			if boss.gpt_api != None:
 				try:
-					ask_gpt(query , boss.gpt_api)
+					ask_gpt(query , boss.gpt_api , boss.name , int(datetime.datetime.now().year - boss.birth_date.year))
 				
 				except Exception as e:
 
