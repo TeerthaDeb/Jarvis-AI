@@ -85,16 +85,16 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Google Bard is being introduced.
 
    ## Version Beta 0.4.92
-         ''' bash
+         ```bash
           pip install pyjokes
-         '''
+         ```
           * Modules are on different files so easy to debug.
 		    * Playing song from youtube is perfect now.
 		    * It can now tell a joke.
 		    * Next version will be dedicated on Google Bard or User Based design.
 
    ## Version Stable 1.00
-          ``` bash
+          ```bash
           pip install pyttsx3==2.7
           pip install openai
           ```
