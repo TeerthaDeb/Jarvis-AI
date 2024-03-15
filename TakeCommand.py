@@ -40,9 +40,11 @@ def takeCommand() -> str:
 	except sr.UnknownValueError:
 		print("Sorry, I didn't understand that.")
 		query = "None"
+
 	except sr.RequestError:
 		print("I'm having trouble connecting to the internet.")
 		query = "None"
+	
 	except Exception as e:
 		print("Exception : " , e)
 		print("Say that again please....")

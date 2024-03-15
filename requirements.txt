@@ -2,11 +2,15 @@ pyttsx3==2.7
 speechrecognition
 wikipedia
 bs4
-requests
+requests==2.26.0
 googlesearch-python
 pytube
 pywhatkit
 cmake
 openai
-selenium
+selenium==4.18.1
 pyjokes
+certifi==2021.10.8
+typing-extensions==4.10.0
+urllib3==1.26.7
+AppOpener

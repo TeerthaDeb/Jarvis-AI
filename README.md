@@ -1,4 +1,4 @@
-# Jarvis-AI Stable 1.0.1 on February 21st , 2024
+# Jarvis-AI 1.0.2 on March 14 , 2024
 
 ## Your Personal Assistant
 
@@ -85,19 +85,15 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Google Bard is being introduced.
 
    ## Version Beta 0.4.92
-         ```bash
+         ''' bash
           pip install pyjokes
-         ```
+         '''
           * Modules are on different files so easy to debug.
 		    * Playing song from youtube is perfect now.
 		    * It can now tell a joke.
 		    * Next version will be dedicated on Google Bard or User Based design.
 
    ## Version Stable 1.00
-          ```bash
-          pip install pyttsx3==2.7
-          pip install openai
-          ```
 		    * Personalized Assistant.
 		    * GPT 3.5 : powered.
 		    * Improved Search Engine.
@@ -105,6 +101,12 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 
 	## Version Stable 1.0.1
 		Some minor fixes on Joke and User class.
+
+   ## Version 1.0.2:
+		* Clean Code so it's easier to maintain and debug.
+		* Better Weather Visual.
+		* Able to tell location.
+		* Able to open / close applicaitons.
 
 ### Contributing
 

@@ -178,6 +178,7 @@ class User:
                                     pass  # Handle the case where the input is still not a valid date format
         self.birth_date = birth_date
 
+
     def set_email(self, email):
         if email is None:
             while not email:

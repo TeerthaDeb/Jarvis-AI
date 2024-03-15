@@ -10,7 +10,17 @@ __status__ = "GPT is here, Bard and sending email is coming soon..."
 import pywhatkit as kit
 import time
 
-def playMusicFromYouTube(search_query):
+def playMusicFromYouTube(search_query : str) -> None:
+    """
+        This Function plays video from youtube.com using search query provided by the user.
+        ----------------
+        Args:
+            search_query (str): Name of the Video
+        
+        ---------------
+        Returns:
+            None
+    """
     try:
         # Use pywhatkit to open the YouTube video in the default web browser
         kit.playonyt(search_query)
@@ -19,8 +29,6 @@ def playMusicFromYouTube(search_query):
         time.sleep(5)
         print("Now playing" , search_query , "from YouTube.")
 
-
-
     except Exception as e:
         print("Error:", e)
 
@@ -28,5 +36,5 @@ def playMusicFromYouTube(search_query):
 if __name__ == "__main__":
 
     # Example usage:
-    search_query = "Despacito"  # Replace with the desired search query
+    search_query = "Despacito"
     playMusicFromYouTube(search_query)
