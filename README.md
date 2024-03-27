@@ -1,4 +1,4 @@
-# Jarvis-AI 1.0.2 on March 14 , 2024
+# Jarvis-AI 1.0.21 on March 27 , 2024
 
 ## Your Personal Assistant
 
@@ -31,24 +31,24 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 2. Install required libraries using PIP:
 
    ```bash
-   pip install pyttsx3
-   pip install speechrecognition
+   pip install pyttsx3==2.7
+   pip install SpeechRecognition
    pip install wikipedia
-   pip install bs4
-   pip install requests
+   pip install beautifulsoup4
+   pip install requests==2.26.0
    pip install googlesearch-python
    pip install pytube
    pip install pywhatkit
    pip install cmake
    pip install openai
-   pip install selenium
+   pip install selenium==4.18.1
    pip install pyjokes
    pip install certifi==2021.10.8
-   pip install requests==2.26.0
-   pip install selenium==4.18.1
    pip install typing-extensions==4.10.0
    pip install urllib3==1.26.7
-
+   pip install AppOpener
+   pip install geocoder
+   pip install geopy
    ```
 
    or
@@ -75,6 +75,8 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    - "Play 'Calm Down' from YouTube"
    - "Tell me about Albert Einstein"
    - "Tell me a joke about python"
+   - "what is the weather in my_city"
+   - "I have some tomatoes and a can of tuna fish. What would be the best recipie". 
    - "Exit" or "Quit"
 
 6. Change Log:
@@ -84,38 +86,42 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 		* Opens some application using "Open Application function"
 		* Better at playing youtube videos
 		
-	## Version Beta 0.4.9
-		* Able to Play Music
-		* Issue on sending emails
-		* GPT integration (Trial Mode)
-	
- 	## Version Beta 0.4.91
-		* Better Weather using web scrapping.
-		* Some features are still in development.
-		* ChatGPT is Uniavailable in this version as it requires premium subscription.
-		* Google Bard is being introduced.
-	
- 	## Version Beta 0.4.92
-   		* Modules are on different files so easy to debug.
-   		* Playing song from youtube is perfect now.
-   		* It can now tell a joke.
-   		* Next version will be dedicated on Google Bard or User Based design.
+	## Version Beta 0.4.9:
+      * Able to Play Music
+      * Issue on sending emails
+      * GPT integration (Trial Mode)
+      
+   ## Version Beta 0.4.91
+      * Better Weather using web scrapping.
+      * Some features are still in development.
+      * ChatGPT is Uniavailable in this version as it requires premium subscription.
+      * Google Bard is being introduced.
+   
+   ## Version Beta 0.4.92
+      * Modules are on different files so easy to debug.
+      * Playing song from youtube is perfect now.
+      * It can now tell a joke.
+      * Next version will be dedicated on Google Bard or User Based design.
 
-   	## Version Stable 1.00
-   		* Personalized Assistant.
-   		* GPT 3.5 : powered.
-   		* Improved Search Engine.
-   		* More Features.
+   ## Version Stable 1.00
+      * Personalized Assistant.
+      * GPT 3.5 : powered.
+      * Improved Search Engine.
+      * More Features.
 
 	## Version Stable 1.0.1
-		* Some minor fixes on Joke and User class.
+	   * Some minor fixes on Joke and User class.
+   
+   ## Version 1.0.2:
+      * Clean Code so it's easier to maintain and debug.
+      * Better Weather Visual.
+      * Able to tell location.
+      * Able to open / close applicaitons.
+      * ultimate requirements added for those who are not able to run it.
 
-   	## Version 1.0.2:
-		* Clean Code so it's easier to maintain and debug.
-		* Better Weather Visual.
-		* Able to tell location.
-		* Able to open / close applicaitons.
-   		* ultimate requirements added for those who are not able to run it.
+   ## Version 1.0.21:
+      * Nice format for weather visuals.
+		* dependencies provided.
 
 
 ### Contributing

@@ -33,4 +33,4 @@ def googleSearch(contentToSearch: str):
 
 # Test the function
 if __name__ == "__main__":
-    googleSearch("Python programming")
+    googleSearch("what are the 7 wonders of the world")
