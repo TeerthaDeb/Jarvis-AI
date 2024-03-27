@@ -82,9 +82,9 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 6. Change Log:
 
 	## Version Beta : 0.2.1:
-		* User can Type and Speak to command Jarvis
-		* Opens some application using "Open Application function"
-		* Better at playing youtube videos
+      * User can Type and Speak to command Jarvis
+      * Opens some application using "Open Application function"
+      * Better at playing youtube videos
 		
 	## Version Beta 0.4.9:
       * Able to Play Music
@@ -109,8 +109,8 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
       * Improved Search Engine.
       * More Features.
 
-	## Version Stable 1.0.1
-	   * Some minor fixes on Joke and User class.
+   ## Version Stable 1.0.1
+      * Some minor fixes on Joke and User class.
    
    ## Version 1.0.2:
       * Clean Code so it's easier to maintain and debug.
@@ -121,7 +121,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 
    ## Version 1.0.21:
       * Nice format for weather visuals.
-		* dependencies provided.
+      * Dependencies provided.
 
 
 ### Contributing
