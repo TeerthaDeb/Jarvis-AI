@@ -50,6 +50,7 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    pip install geocoder
    pip install geopy
    pip install google-generativeai
+   pip install wikipedia-api
    ```
 
    or
