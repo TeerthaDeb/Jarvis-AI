@@ -16,3 +16,5 @@ urllib3==1.26.7
 AppOpener
 geocoder
 geopy
+google-generativeai
+wikipedia-api

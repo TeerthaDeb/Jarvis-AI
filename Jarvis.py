@@ -2,10 +2,10 @@ __author__ = "Maharaj Teertha Deb"
 __copyright__ = "Copyright 2023, Jarvis-AI" 
 __credits__ = ["Harris Ali Khan"]
 __license__ = "MIT Licensing"  
-__version__ = "1.0.21"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 
 '''
@@ -50,6 +50,11 @@ __status__ = "GPT is here, Bard and sending email is coming soon..."
 	Changes on 1.0.21:
 		* Nice format for weather visuals.
 		* dependencies provided.
+
+	Changes on 1.2:
+		* Google Bard introduced.
+        	- Can answer any question based on the user input.
+		* Chat Gpt would be used at first, then Google Bard if not available.
 '''
 
 # These are prebuilt modules
@@ -67,7 +72,6 @@ from googlesearch import search
 
 # These are designed modules:
 from tryGPT import ask_gpt
-from weather import find_weather_element
 from Speak import speak
 from TakeCommand import takeCommand
 from OpenApplication import open_application
@@ -79,9 +83,12 @@ import User
 import Joke
 from OpenApplicaiton2 import open_app
 from OpenApplicaiton2 import close_app
+from tryBard import ask_gemini
 
 # Jarvis Starts here:
 boss = None
+
+os.system('cls' if 'nt' in os.name else 'clear') # Clearing the terminal screen
 
 def User_Set_UP() -> None:
 	"""
@@ -106,6 +113,7 @@ def User_Set_UP() -> None:
 		speak("Welcome to Jarvis AI Assistant! I will be your personal assistant. Before you continue, let's setup your personal assistant at first. It is a one time setup and next time you will just click and run it.")
 		speak("So let's get started.")
 		boss = User.User()
+		os.system('cls' if 'nt' in os.name else 'clear')
 	
 	User.save_user_to_file(boss)
 
@@ -204,8 +212,8 @@ if __name__ == "__main__":
 				speak("Searching Wikipedia...")
 				query = query.replace("wikipedia" , "")
 				results = wikipedia.summary(query , sentences = 2)
-				print(f"According to Wikipedia,{results}")
-				speak(f"According to Wikipedia,{results}")
+				print(f"According to Wikipedia, {results}")
+				speak(f"According to Wikipedia, {results}")
 
 
 
@@ -293,7 +301,7 @@ if __name__ == "__main__":
 				'''
 				webbrowser.open("https://www.gmail.com")
 				print("Gmail opened via your default browser")
-				speak("Opened Google Mail")
+				speak("Opened gmail")
 
 			
 
@@ -328,31 +336,30 @@ if __name__ == "__main__":
 						- either cases it saves update to user file.
 						- Finally tries to play music from the directory.
 
-						Updated on : 1.00 , 1.0.1
+						Updated on:	1.00 , 1.0.1
+									1.2 : logics updated.
 				'''
 
-				if(boss.check_music_directory != None):
+				if boss.check_music_directory() :
 					music_dir = boss.get_music_directory()
-
+					
 				else:
 					music_dir = input("Please enter your music directory full-path: ")
-		
+
 				if not os.path.exists(music_dir):
 					speak("That is an invalid Path. Do you want me to make this path?")
-					choise = input ("That is an invalid Path. Do you want me to make this path? (Yes / No) : ")
+					choice = input("That is an invalid Path. Do you want me to make this path? (Yes / No) : ")
 
-					if choise[0] == "y" or choise[0] == "Y":
+					if choice.lower().startswith("y"):
 						os.makedirs(music_dir)
-						print("Directory made. Now you can paste your songs in that directory.")
-						speak("Directory made. Now you can paste your songs in that directory.")
+						print("Directory created. Now you can paste your songs in that directory.")
+						speak("Directory created. Now you can paste your songs in that directory.")
 						boss.set_music_directory(music_dir)
-						User.save_user_to_file(boss)					
-
+						User.save_user_to_file(boss)
 					else:
-						print("Operation aborted to play musics")
-						speak("Operation aborted to play musics")
+						print("Operation aborted to play music.")
+						speak("Operation aborted to play music.")
 						continue
-				
 				else:
 					boss.set_music_directory(music_dir)
 					User.save_user_to_file(boss)
@@ -364,7 +371,7 @@ if __name__ == "__main__":
 						print("No songs found in the music directory.")
 					else:
 						speak("Playing songs.")
-						print("Playing Songs: ", songs)
+						print("Playing Songs:", songs)
 						os.startfile(os.path.join(music_dir, songs[0]))
 				except Exception as e:
 					print("Error:", e)
@@ -372,12 +379,12 @@ if __name__ == "__main__":
 
 
 			
-			elif "what" in query and "time" in query:
+			elif "what" in query and "time" in query and ("it" in query or "now" in query):
 				'''
 					This block tells the current time.
 
-					Updated on : 
-					Modified on : 1.0.2
+					Updated on : 1.2: better logic
+
 				'''
 				strTIme = datetime.now().strftime("%H:%M:%S")
 				print("The time is : ", strTIme)
@@ -399,7 +406,7 @@ if __name__ == "__main__":
 					search_query = search_query.replace("for" , "").strip()
 				
 				googleSearch(search_query)
-				speak("Search result on your screen")
+				speak("Search result is on your screen.")
 
 
 
@@ -438,6 +445,7 @@ if __name__ == "__main__":
 
 					Updated on : 
 					Mofied on : 1.0.2
+								1.2 : Added not found on wikipedia logic
 				'''
 
 				search_query = query.replace("what is", "").strip()
@@ -452,6 +460,7 @@ if __name__ == "__main__":
 						print("Error while searching in wikipedia. Error : " , e)
 					# If not found on Wikipedia, search on Google
 				except Exception as e:
+					speak("As I don't know and did not find this on wikipedia, I am")
 					googleSearch(search_query)
 			
 
@@ -514,10 +523,10 @@ if __name__ == "__main__":
 				'''
 					This block Responses on Thank you.
 				'''
-				speak("You are welcome. I am designed to help you by all means any time.")
+				speak("You are welcome. I am designed to help you by all means, any time.")
 			
 			
-			elif("how do you work?" in query):
+			elif("how do you work" in query):
 				'''
 					This  block gives an overview of how my AI works. ; - )
 				'''
@@ -534,7 +543,7 @@ if __name__ == "__main__":
 				location = get_city_details()
 				print(format(location))
 
-				speak(f"You're currently located at {location['city']}. That is in {location['country']}.")
+				speak(f"You're currently located at {location['region']}. That is in {location['country']}.")
 
 
 
@@ -631,6 +640,21 @@ if __name__ == "__main__":
 				close_app(query[1])
 
 
+			
+			elif "ask" in query and ("bard" in query or "bird" in query or "gemini" in query):
+				'''
+					since : 1.2
+					functionality:
+						- asks google bard
+				'''
+				try:
+					ask_gemini(query , boss.bard_api)
+				
+				except Exception as e:
+					print(f"\n\nError Occured while asking Gemini as well.\n{str(e)}\n\n")
+					speak("Also encountered error while asking bard. Please try again later.")
+
+
 
 			else:
 				'''
@@ -639,7 +663,8 @@ if __name__ == "__main__":
 						- checks user's gpt api
 						- if they have it,  generates response based on user's input from gpt.
 					
-					modified On : 1.0.2
+					modified On : 	1.0.2,
+									1.2 : Added Google Bard.
 				'''
 				if boss.gpt_api != None:
 					try:
@@ -648,24 +673,44 @@ if __name__ == "__main__":
 					except Exception as e:
 
 						if ("insufficient_quota" in str(e)):
-							print("Your Api key is out expired now. You need to get a new api key. I am opening the webbrowser you can get a new api key")
-							speak("Your Api key is out expired now. You need to get a new api key. I am opening the webbrowser you can get a new api key")
+							print("Your Api key is expired now. You need to get a new api key. I am opening the webbrowser you can get a new api key.")
+							speak("Your Api key is expired now. You need to get a new api key. I am opening the webbrowser you can get a new api key")
 							boss.set_gpt_api(None)
-							print("Try the command again.")
-							speak("Try the command again.")
 							User.save_user_to_file(boss)
+							
+							speak("Asking Bard now.")
+							try:
+								ask_gemini(query , boss.bard_api)
+							
+							except Exception as e:
+								print(f"\n\nError Occured while asking Gemini.\n{str(e)}\n\n")
+								speak("Also encountered error while asking bard. Please try again later.")
 
 						elif ("invalid_api_key" in str(e)):
 							print("Gpt says that is an invalid api key.")
 							speak("Opps!  It seems like your GPT API Key is not valid.")
 							boss.set_gpt_api(None)
-							print("Try the command again.")
-							speak("Try the command again.")
 							User.save_user_to_file(boss)
+
+							speak("Asking Bard now.")
+							try:
+								ask_gemini(query , boss.bard_api)
+							
+							except Exception as e:
+								print(f"\n\nError Occured while asking Gemini.\n{str(e)}\n\n")
+								speak("Also encountered error while asking bard. Please try again later.")
 
 						else:
 							print("I tried GPT, but failed to response due to :" , e)
 							speak("I tried GPT, but failed to response")
+
+							speak("Asking Bard now.")
+							try:
+								ask_gemini(query , boss.bard_api)
+							
+							except Exception as e:
+								print(f"\n\nError Occured while asking Gemini as well.\n{str(e)}\n\n")
+								speak("Also encountered error while asking bard. Please try again later.")
 
 
 

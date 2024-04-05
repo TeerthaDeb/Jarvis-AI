@@ -1,31 +1,31 @@
-import os
-import requests
+__author__ = "Maharaj Teertha Deb" 
+__copyright__ = "Copyright 2023, Jarvis-AI" 
+__credits__ = ["https://ai.google.dev/api/python/google/generativeai"] 
+__license__ = "MIT Licensing"  
+__version__ = "1.2"
+__maintainer__ = "Maharaj Teertha Deb" 
+__email__ = "maharaj.deb@mail.concordia.ca" 
+__status__ = "Google Bard Introduced." 
 
-def get_bard_response(prompt):
-    # Set your Google Bard session cookies here
-    bard_cookies = {
-        "__Secure-1PSID": "g.a000fwgr6H6fk_9Bs8-XRBGZQshbzaWJcNEBQpfcYF6kky77r4i2FCc6UqrQ4hDNIL-frH5TuwACgYKAeESAQASFQHGX2Mi3u3ESskQ2zu_5ZA5q2YxLRoVAUF8yKrHdJqaqrhVGoBBWsGLciLm0076.",
-        "__Secure-1PSIDTS": "sidts-CjIBYfD7ZyF3E6QU9PXgBUt5vhGPurncuW_2OBZqqwRzsmpBNkrvG4L06JPX4mSXKqgJNxAA."
-    }
 
-    # Construct the API URL
-    api_url = "https://bard.google.com/api/v1/quick"
+import google.generativeai as genai
+from Speak import speak
 
-    # Prepare the request headers
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-    }
+def ask_gemini(query : str , api : str) -> None:
+	"""_summary_ : Asks Gemini AI a question and generates an answer using Google Generative AI API.
 
-    # Send the request to Google Bard
-    response = requests.post(api_url, json={"text": prompt}, cookies=bard_cookies, headers=headers)
+	Args:
+		query (str): what  you want to ask the gemini ai.
+		api (str): your google pi key.
 
-    # Extract the generated text from the response
-    generated_text = response.json().get("text", "")
+		Since : 1.2
+	"""
+	genai.configure(api_key = api)
 
-    return generated_text
+	model = genai.GenerativeModel('gemini-pro')
+	response = model.generate_content(query)
+	print("According to gemini: ", response.text)
+	speak("According to gemini, " + response.text)
 
-if __name__ == "__main__":
-    user_prompt = input("Enter your question or prompt: ")
-    bard_response = get_bard_response(user_prompt)
-    print("\nGoogle Bard's Response:")
-    print(bard_response)
+if __name__ ==  '__main__':
+	ask_gemini("What is the capital of France?", "<YOUR API KEY>")

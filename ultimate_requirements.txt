@@ -280,3 +280,4 @@ zict==2.0.0
 zipp==3.4.0
 zope.event==4.5.0
 zope.interface==5.1.2
+google-generativeai

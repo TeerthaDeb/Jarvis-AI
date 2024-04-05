@@ -1,11 +1,11 @@
 __author__ = "Maharaj Teertha Deb" 
 __copyright__ = "Copyright 2023, Jarvis-AI" 
-__credits__ = ["Harris Ali Khan"] 
+__credits__ = [] 
 __license__ = "MIT Licensing"  
-__version__ = "1.0.1"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 import pywhatkit as kit
 import time
@@ -32,9 +32,8 @@ def playMusicFromYouTube(search_query : str) -> None:
     except Exception as e:
         print("Error:", e)
 
+# Example usage:
 
 if __name__ == "__main__":
-
-    # Example usage:
     search_query = "Despacito"
     playMusicFromYouTube(search_query)

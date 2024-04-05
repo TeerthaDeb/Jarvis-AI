@@ -2,10 +2,10 @@ __author__ = "Maharaj Teertha Deb"
 __copyright__ = "Copyright 2023, Jarvis-AI" 
 __credits__ = ["https://www.askpython.com/python/examples/weather-forecast-using-python"] 
 __license__ = "MIT Licensing"  
-__version__ = "1.0.1"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 
 import re

@@ -1,7 +1,15 @@
+__author__ = "Maharaj Teertha Deb" 
+__copyright__ = "Copyright 2023, Jarvis-AI" 
+__credits__ = ["Harris Ali Khan"] 
+__license__ = "MIT Licensing"  
+__version__ = "1.2"
+__maintainer__ = "Maharaj Teertha Deb" 
+__email__ = "maharaj.deb@mail.concordia.ca" 
+__status__ = "Google Bard Introduced." 
+
+
 import openai
 from Speak import speak
-
-
 
 
 def ask_gpt(prompt : str , user_api_key : str , user_name : str , user_age : int):

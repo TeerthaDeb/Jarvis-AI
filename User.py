@@ -1,11 +1,11 @@
 __author__ = "Maharaj Teertha Deb" 
 __copyright__ = "Copyright 2023, Jarvis-AI" 
-__credits__ = ["Harris Ali Khan"] 
+__credits__ = [] 
 __license__ = "MIT Licensing"  
-__version__ = "1.0.1"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 import datetime
 import json
@@ -96,15 +96,16 @@ class User:
 
     def set_bard_api(self, bard_api):
         if bard_api is None:
-            speak("Would you like to set up your Google Bard api? Only consider it if you are residing in the US. or You can use a vpn to connect your computer to the US server.")
-            choice = input("Would you like to set up your bard_api? Only consider it if you are residing in the US. or You can use a vpn to connect your computer to the US server : ")
+            print("Would you like to set up your bard_api? (Yes/No)")
+            speak("Would you like to set up your Google Bard api?")
+            choice = input()
             
 
             if choice.lower()[0] == "y":
                 print("I am suggesting you a website that helps you get your bard api key")
                 speak("I am suggesting you a website that helps you get your bard api key")
 
-                webbrowser.open("https://aibard.online/bard-api-key/")
+                webbrowser.open("https://aistudio.google.com/app/apikey")
                 speak("When you have your key, paste it here and press enter")
                 bard_api = input("Please copy and paste your BARD API Key here (or enter \"no key\" if you don't have it): ")
 
@@ -225,7 +226,10 @@ class User:
         return False
     
     def check_music_directory(self) -> bool:
-        return self.music_directory != None
+        '''
+			updated : 1.02 : logics updated.
+        '''
+        return self.music_directory != None and self.music_directory != "null" and self.music_directory != "None"
     
     def set_music_directory(self , music_directory):
         if(music_directory):

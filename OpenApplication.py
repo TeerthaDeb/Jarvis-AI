@@ -1,11 +1,11 @@
 __author__ = "Maharaj Teertha Deb" 
 __copyright__ = "Copyright 2023, Jarvis-AI" 
-__credits__ = ["Harris Ali Khan" , "Jarvis-AI , itself."] 
+__credits__ = ["Jarvis-AI , itself."] 
 __license__ = "MIT Licensing"  
-__version__ = "1.0.2"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 import os
 from Speak import speak

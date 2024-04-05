@@ -2,10 +2,10 @@ __author__ = "Maharaj Teertha Deb"
 __copyright__ = "Copyright 2024, Jarvis-AI" 
 __credits__ = ["https://www.geeksforgeeks.org/open-applications-using-python/"]
 __license__ = "MIT Licensing"  
-__version__ = "1.0.2"
+__version__ = "1.2"
 __maintainer__ = "Maharaj Teertha Deb" 
 __email__ = "maharaj.deb@mail.concordia.ca" 
-__status__ = "GPT is here, Bard and sending email is coming soon..." 
+__status__ = "Google Bard Introduced." 
 
 from AppOpener import open, close
 from Speak import speak
@@ -32,7 +32,7 @@ def open_app(app_name : str) -> bool:
     try:
         open(app_name , match_closest=True , throw_error = True)
         print("Opened" , app_name)
-        speak("Opened")
+        speak("Opened" + app_name)
         return True
     
     except Exception as e:
