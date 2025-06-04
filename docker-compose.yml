@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./jarvis-heart
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    container_name: jarvis-backend
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+    stdin_open: true 
+    tty: true 
+
+  frontend:
+    build:
+      context: ./jarvis-ui
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    container_name: jarvis-frontend
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+    stdin_open: true 
+    tty: true 

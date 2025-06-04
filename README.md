@@ -1,4 +1,4 @@
-# Jarvis-AI 1.2 on April 5, 2024
+# Jarvis-AI 2.0 on June 3, 2024
 
 ## Your Personal Assistant
 
@@ -15,10 +15,18 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
 - Facilitates sending emails effortlessly.
 - Provides real-time weather information.
 - Can Play Music if you provide correct directory. <0.4.9>
-- GPT Integration(trial Mode) <0.4.9>
-- Can tell you random joke on special topics.
-- Can use gpt to respond unfeeded answer. <1.00>
+- Has web Face. <2.0.0-beta>
+- Uses local LLM via Ollama, also supports GPU acceleration. <2.0.0-beta>
 - And more...
+
+### Requirements:
+- Python 3.8 or higher
+- Node.js 20 or higher
+- Ollama running
+- Model llama 2 installed in ollama
+- Docker and K8S running to follow 2.1 (but it takes around 10 minutes to install)
+- (optional) GPU acceleration for faster performance only NVIDIA GPUs are supported this time 
+
 
 ### Installation
 
@@ -28,58 +36,53 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
    git clone https://github.com/TeerthaDeb/Jarvis-AI.git
    ```
 
-2. Install required libraries using PIP:
+follow either 2.1 or 2.2
 
-   ```bash
-   pip install pyttsx3==2.7
-   pip install SpeechRecognition
-   pip install wikipedia
-   pip install beautifulsoup4
-   pip install requests==2.26.0
-   pip install googlesearch-python
-   pip install pytube
-   pip install pywhatkit
-   pip install cmake
-   pip install openai
-   pip install selenium==4.18.1
-   pip install pyjokes
-   pip install certifi==2021.10.8
-   pip install typing-extensions==4.10.0
-   pip install urllib3==1.26.7
-   pip install AppOpener
-   pip install geocoder
-   pip install geopy
-   pip install google-generativeai
-   pip install wikipedia-api
+2.1 write 
    ```
+   docker-compose up --build
+   ```
+   in your cli and it should build the docker image and then run Jarvis locally.
 
-   or
-
-   ```bash
+2.2 If you don't want dockerized version, you can install the requirements by running the following command in your terminal:
+   ```
+   cd Jarvis-AI
+   cd jarvis-ui
+   npm install
+   ```
+   and then run the following command in your terminal:
+   ```
+   cd Jarvis-AI
+   cd jarvis-heart
    pip install -r requirements.txt
    ```
-
-   or
-   ```bash
-   pip install -r ultimate_requirements.txt
+   all the requirements installed.
+   now you can run the following command in your terminal:
+   ```
+   cd Jarvis-AI
+   cd jarvis-heart
+   python app.py
+   ```
+   in another terminal window, run the following command to run the UI:
+   ```
+   cd Jarvis-AI
+   cd jarvis-ui
+   npm run dev
    ```
 
-4. Launch the `jarvis.py` script:
+3. Interact with Jarvis using voice commands. Some example commands:
+   * At first it will ask your name and DOB for personalized response.
+   * As long as you keep interacting with Jarvis, Jarvis will be more personal.
 
-   ```bash
-   python Jarvis.py
-   ```
-
-5. Interact with Jarvis using voice commands. Some example commands:
-
-   - "What is the weather today?"
-   - "Open YouTube"
-   - "Play 'Calm Down' from YouTube"
-   - "Tell me about Albert Einstein"
-   - "Tell me a joke about python"
-   - "what is the weather in my_city"
-   - "I have some tomatoes and a can of tuna fish. What would be the best recipie". 
-   - "Exit" or "Quit"
+   * Ask some questions to Jarvis:
+      - "What is the weather today?"
+      - "Open YouTube"
+      - "Play 'Calm Down' from YouTube"
+      - "Tell me about Albert Einstein"
+      - "Tell me a joke about python"
+      - "what is the weather in my_city"
+      - "I have some tomatoes and a can of tuna fish. What would be the best recipie". 
+      - "Exit" or "Quit"
 
 6. Change Log:
 
@@ -130,6 +133,12 @@ Jarvis is a Python-based personal assistant that efficiently performs a variety 
         - Can answer any question based on the user input.
 	  * Logic Improvements.
 
+   ## Version 2.0.0-beta:
+      * Uses Local LLM via Ollama to responds
+      * Has a good UI to chat with,
+      * Can play youtube video directly on your UI.
+      * More features coming soon.
+
 
 ### Contributing
 
@@ -139,7 +148,14 @@ Contributions are highly encouraged! If you have improvements or new features to
 
 Created by Maharaj Teertha Deb  
 LinkedIn: [https://www.linkedin.com/in/maharaj-teertha-deb/](https://www.linkedin.com/in/maharaj-teertha-deb/)  
-Released on: August 31, 2023
+Portfolio: [https://teerthadeb.github.io/Portfolio/](https://teerthadeb.github.io/Portfolio/)
+
+
+### Privacy
+No data is sent to anywhere, all it is using is local LLM via Ollama. So your data is in your hand.
+
+
+1st Released on: August 31, 2023
 
 ### Warning
 

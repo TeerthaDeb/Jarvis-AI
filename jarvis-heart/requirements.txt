@@ -1,0 +1,31 @@
+flask
+flask-cors
+ollama
+torch
+pytube
+requests
+pyttsx3==2.7
+
+# THESE WILL BE used in the future not in beta version
+# speechrecognition
+# wikipedia
+# bs4
+# googlesearch-python
+# pywhatkit
+# cmake
+# openai
+# selenium==4.18.1
+# pyjokes
+# certifi==2021.10.8
+# typing-extensions==4.10.0
+# urllib3==1.26.7
+# AppOpener
+# geocoder
+# geopy
+# google-generativeai
+# wikipedia-api
+
+requests==2.31.0
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torchvision==0.17.1+cu121
+torchaudio==2.2.1+cu121 
